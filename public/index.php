@@ -1,44 +1,47 @@
 <?php
 
 
+use Slim\App;
+use Slim\Http\Request;
+use Slim\Http\Response;
+
 require_once '../vendor/autoload.php';
-
-$app = new \Slim\App{[
-        'settings' => [
-            'displayErrorDetails' => true
-        ]
-]};
-
+require '../includes/UtenteManager.php';
+require '../includes/ConnessioneDB.php';
+$app = new App([
+    'settings' => [
+        'displayErrorDetails' => true
+    ]
+]);
 
 //lista utenti
-$app->get('/listaUtenti', function (Request $request, Response $response){
+$app->get('/listaUtenti', function (Request $request, Response $response) {
     $db = new UtenteManager();
-    $responseData = $db-> getUtenti();  //risposta
-    $response-> getBody()-> write(json_encode(array("utenti" => $responseData))); //metto in un array json l'array
+    $responseData = $db->getUtenti();  //risposta
+    $response->getBody()->write(json_encode(array("utenti" => $responseData))); //metto in un array json l'array
 });
-
 
 
 //accesso
 
-$app->post('/accesso', function (Request $request, Response $response){
+$app->post('/accesso', function (Request $request, Response $response) {
     $db = new UtenteManager();
 
     $responseData = $request->getParsedBody();
-    $email = $responseData['email'];
+    $idattore = $responseData['idattore'];
     $password = $responseData['passsword'];
 
     $responseData = array();
 
-    if($db->accesso($email, $password)){
+    if ($db->accesso($idattore, $password)) {
         $responseData['error'] = false;
         $responseData['message'] = 'Login ok';
-    }else{
-        $responseData['error']= true;
+    } else {
+        $responseData['error'] = true;
         $responseData['message'] = 'Login non ok';
     }
-
-    $response->getBody()-> write(json_encode($responseData));
+    return $response->withJson($responseData);
+//    $response->getBody()->write(json_encode($responseData));
 });
 
 $app->run();
