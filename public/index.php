@@ -29,7 +29,7 @@ $app->post('/accesso', function (Request $request, Response $response) {
 
     $responseData = $request->getParsedBody();
     $idattore = $responseData['idattore'];
-    $password = $responseData['passsword'];
+    $password = $responseData['password'];
 
     $responseData = array();
 
@@ -41,7 +41,7 @@ $app->post('/accesso', function (Request $request, Response $response) {
         $responseData['message'] = 'Login non ok';
     }
     return $response->withJson($responseData);
-//    $response->getBody()->write(json_encode($responseData));
+  //  $response->getBody()->write(json_encode($responseData));
 });
 
 $app->run();

@@ -38,7 +38,7 @@ class UtenteManager
 
     public  function accesso($idattore, $password){
 
-        $stmt = $this->con-> prepare("SELECT * FROM attori WHERE idattore = ? AND password = ?");
+        $stmt = $this->con-> prepare("SELECT idattore, tipo, nome, cognome FROM attori WHERE idattore = ? AND password = ?");
         $stmt-> bind_param("ss",$idattore,$password); //ss se sono 2 stringhe, ssi 2 string e un int
         $stmt->execute();
         $stmt->store_result();
