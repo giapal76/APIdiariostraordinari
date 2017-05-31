@@ -12,7 +12,7 @@ class UtenteManager
         $this->con = $db->connection();
     }
 
-    //restituisce lista utenti
+    //lista utenti
     public function getUtenti(){
         $stmt = $this->con->prepare("SELECT idattore, tipo, nome, cognome FROM attori");
         $stmt->execute();//esegue query appena scritta
@@ -39,11 +39,27 @@ class UtenteManager
     public  function accesso($idattore, $password){
 
         $stmt = $this->con-> prepare("SELECT idattore, tipo, nome, cognome FROM attori WHERE idattore = ? AND password = ?");
-        $stmt-> bind_param("ss",$idattore,$password); //ss se sono 2 stringhe, ssi 2 string e un int
+        $stmt-> bind_param("ss",$idattore, $password); //ss se sono 2 stringhe, ssi 2 string e un int
         $stmt->execute();
         $stmt->store_result();
 
         return $stmt-> num_rows > 0;
 
     }
+
+    //inserimento attore (non funziona, mi da sempre inserimento non riuscito)
+
+    public function insert ($idattore, $tipo, $nome, $cognome, $password){
+        $stmt = $this->con-> prepare("INSERT INTO attori (idattore, tipo, nome, cognome, password) VALUES (?,?,?,?,?)");
+        $stmt-> bind_param("sssss",$idattore, $tipo, $nome, $cognome, $password);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if($stmt){
+            return 1;
+        } else{
+            return 0;
+        }
+        }
+
 }

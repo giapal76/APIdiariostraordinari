@@ -41,7 +41,34 @@ $app->post('/accesso', function (Request $request, Response $response) {
         $responseData['message'] = 'Login non ok';
     }
     return $response->withJson($responseData);
-  //  $response->getBody()->write(json_encode($responseData));
 });
+
+//inserimento attore (non funziona, mi da sempre inserimento non riuscito)
+
+$app->post('/insert', function (Request $request, Response $response) {
+    $db = new UtenteManager();
+
+    $responseData = $request->getParsedBody();
+    $idattore = $responseData['idattore'];
+    $tipo = $responseData['tipo'];
+    $nome = $responseData['nome'];
+    $cognome = $responseData['cognome'];
+    $password = $responseData['password'];
+
+    $responseData = array();
+
+    $result = $db->insert($idattore,$tipo,$nome,$cognome,$password);
+
+    if ($result == 1) {
+        $responseData['error'] = false;
+        $responseData['message'] = 'Attore aggiunto con successo ';
+    } elseif ($result == 0) {
+        $responseData['error'] = true;
+        $responseData['message'] = 'Inserimento non effettuato';
+    }
+
+    return $response->withJson($responseData);
+});
+
 
 $app->run();
