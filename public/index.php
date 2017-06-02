@@ -35,15 +35,18 @@ $app->post('/accesso', function (Request $request, Response $response) {
 
     if ($db->accesso($idattore, $password)) {
         $responseData['error'] = false;
-        $responseData['message'] = 'Login ok';
+        $responseData['message'] = 'Accesso effettuato con successo';
+        $responseData['tipoUtente'] = $db->getTypeByIdattore($idattore);
+
     } else {
         $responseData['error'] = true;
-        $responseData['message'] = 'Login non ok';
+        $responseData['message'] = 'Credenziali errate';
     }
     return $response->withJson($responseData);
 });
 
-//inserimento attore (non funziona, mi da sempre inserimento non riuscito)
+
+//inserimento attore
 
 $app->post('/insert', function (Request $request, Response $response) {
     $db = new UtenteManager();
@@ -71,4 +74,24 @@ $app->post('/insert', function (Request $request, Response $response) {
 });
 
 
+//delete
+$app->post('/delete', function (Request $request, Response $response){
+    $db = new UtenteManager();
+
+    $responseData = $request->getParsedBody();
+    $idattore = $responseData['idattore'];
+
+    $result = $db->delete($idattore);
+
+    if ($result == 2) {
+        $responseData['error'] = false;
+        $responseData['message'] = 'Attore cancellato con successo ';
+    } elseif ($result == 3) {
+        $responseData['error'] = true;
+        $responseData['message'] = 'Cancellazione non effettuata';
+    }
+});
+
+
 $app->run();
+
