@@ -60,36 +60,50 @@ $app->post('/insert', function (Request $request, Response $response) {
 
     $responseData = array();
 
-    $result = $db->insert($idattore,$tipo,$nome,$cognome,$password);
+    $result = $db->insert($idattore, $tipo, $nome, $cognome, $password);
 
     if ($result == 1) {
         $responseData['error'] = false;
         $responseData['message'] = 'Attore aggiunto con successo ';
     } elseif ($result == 0) {
         $responseData['error'] = true;
-        $responseData['message'] = 'Inserimento non effettuato';
+        $responseData['message'] = 'Attore già esistente';
     }
 
     return $response->withJson($responseData);
 });
 
 
-//delete
-$app->post('/delete', function (Request $request, Response $response){
+//delete da controllare sta messo post.. metti delete salva
+$app->delete('/delete/{id}', function (Request $request, Response $response) {
     $db = new UtenteManager();
 
-    $responseData = $request->getParsedBody();
-    $idattore = $responseData['idattore'];
+    $idattore = $request->getAttribute('id');
 
-    $result = $db->delete($idattore);
+    if ($idattore) {
+        $attore = $db->get_utente($idattore);
 
-    if ($result == 2) {
+        if ($attore) {
+            $result = $db->delete($idattore);
+
+            if ($result) {
+                $responseData['error'] = false;
+                $responseData['message'] = 'Attore cancellato con successo ';
+            } else {
+                $responseData['error'] = true;
+                $responseData['message'] = 'Cancellazione non effettuata';
+            }
+        } else {
+            $responseData['error'] = false;
+            $responseData['message'] = 'Utente non presente';
+        }
+
+    } else {
         $responseData['error'] = false;
-        $responseData['message'] = 'Attore cancellato con successo ';
-    } elseif ($result == 3) {
-        $responseData['error'] = true;
-        $responseData['message'] = 'Cancellazione non effettuata';
+        $responseData['message'] = 'Parametri mancanti';
     }
+
+    return $response->withJson($responseData);
 });
 
 
