@@ -1,3 +1,4 @@
+//File gestionale per utenti
 <?php
 
 
@@ -12,14 +13,18 @@ class UtenteManager
         $this->con = $db->connection();
     }
 
-    //lista utenti
+
+    //Funzione lista utenti
     public function getUtenti()
     {
         $stmt = $this->con->prepare("SELECT idattore, tipo, nome, cognome FROM attori");
-        $stmt->execute();//esegue query appena scritta
-        $stmt->bind_result($idattore, $tipo, $nome, $cognome); //salvo il risultato della query nelle var
+        //Esegue la query
+        $stmt->execute();
+        //Salvo il risultato della query nelle variabili
+        $stmt->bind_result($idattore, $tipo, $nome, $cognome);
 
         $utenti = array();
+
 
         while ($stmt->fetch()) {
             $temp = array();
@@ -29,11 +34,11 @@ class UtenteManager
             $temp['cognome'] = $cognome;
             array_push($utenti, $temp);
         }
-        return $utenti;  // creato il metodo che mi restituisce la lista utenti
+        return $utenti;
     }
 
 
-    //accesso
+    //Funzione di accesso
     public function accesso($idattore, $password)
     {
 
@@ -41,12 +46,11 @@ class UtenteManager
         $stmt->bind_param("ss", $idattore, $password); //ss se sono 2 stringhe, ssi 2 string e un int
         $stmt->execute();
         $stmt->store_result();
-
+        //Controllo se ha trovato matching tra dati inseriti e capi del db
         return $stmt->num_rows > 0;
     }
 
-    // prendo il tipo attore in base al suo id (mi serve per lo switch degli attori)
-    // ps posso passarmi anche tutti i restanti dati dell'attore
+    //Funzione che mi prende il tipo attore in base al suo id (mi serve per lo switch degli attori)
     public function getTypeByIdattore($idattore)
     {
         $stmt = $this->con->prepare("SELECT idattore, tipo, nome, cognome FROM attori WHERE idattore=?");
@@ -54,6 +58,8 @@ class UtenteManager
         $stmt->execute();
         $stmt->bind_result($idattore, $tipo, $nome, $cognome);
         $stmt->fetch();
+
+        //PS posso passarmi anche tutti i restanti dati dell'attore utilizzando un array
         $utente = $tipo;
         //$utente['idattore'] = $idattore;
         $utente['tipo'] = $tipo;
@@ -63,7 +69,7 @@ class UtenteManager
     }
 
 
-    //inserimento attore
+    //Funzione inserimento attore
     public function insert($idattore, $tipo, $nome, $cognome, $password)
     {
         $stmt = $this->con->prepare("INSERT INTO attori (idattore, tipo, nome, cognome, password) VALUES (?,?,?,?,?)");
@@ -79,7 +85,7 @@ class UtenteManager
     }
 
 
-    //delete (seleziona idattore da url)
+    //Funzione delete (seleziona idattore da url)
     public function delete($idattore)
     {
         $stmt = $this->con->prepare("DELETE FROM attori WHERE idattore= ?");

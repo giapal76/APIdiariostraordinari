@@ -1,5 +1,8 @@
-<?php
+//Slim Framework è un framework PHP
+//L’installazione di slim framework è fortemente consigliata con  Composer.
+//Composer è un tool per gestire le dipendenze nei progetti php
 
+<?php
 
 use Slim\App;
 use Slim\Http\Request;
@@ -14,16 +17,23 @@ $app = new App([
     ]
 ]);
 
-//lista utenti
+//Possiamo aggiungere route che gestiscono richieste di tipo Get il tutto avviente con il metodo get che slim ci mette a disposizione.
+
+//Esso accetta due argomenti:
+//Il pattern della route
+//Una funzione di callback, che a sua volta prende 2 argomenti (richiesta, risposta)
+
+// lista utenti
 $app->get('/listaUtenti', function (Request $request, Response $response) {
     $db = new UtenteManager();
-    $responseData = $db->getUtenti();  //risposta
-    $response->getBody()->write(json_encode(array("utenti" => $responseData))); //metto in un array json l'array
+    //risposta
+    $responseData = $db->getUtenti();
+    //metto in un array json
+    $response->getBody()->write(json_encode(array("utenti" => $responseData)));
 });
 
 
 //accesso
-
 $app->post('/accesso', function (Request $request, Response $response) {
     $db = new UtenteManager();
 
@@ -47,7 +57,6 @@ $app->post('/accesso', function (Request $request, Response $response) {
 
 
 //inserimento attore
-
 $app->post('/insert', function (Request $request, Response $response) {
     $db = new UtenteManager();
 
