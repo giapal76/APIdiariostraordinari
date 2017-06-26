@@ -1,6 +1,5 @@
-//File gestionale per utenti
 <?php
-
+//File gestionale per utenti
 
 class UtenteManager
 {

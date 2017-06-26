@@ -1,8 +1,8 @@
-//Slim Framework è un framework PHP
-//L’installazione di slim framework è fortemente consigliata con  Composer.
-//Composer è un tool per gestire le dipendenze nei progetti php
-
 <?php
+
+//Slim Framework e un framework PHP
+//L installazione di slim framework e fortemente consigliata con  Composer.
+//Composer e un tool per gestire le dipendenze nei progetti php
 
 use Slim\App;
 use Slim\Http\Request;
@@ -19,7 +19,7 @@ $app = new App([
 
 //Possiamo aggiungere route che gestiscono richieste di tipo Get il tutto avviente con il metodo get che slim ci mette a disposizione.
 
-//Esso accetta due argomenti:
+//Esso accetta due argomenti
 //Il pattern della route
 //Una funzione di callback, che a sua volta prende 2 argomenti (richiesta, risposta)
 
