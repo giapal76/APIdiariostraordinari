@@ -30,6 +30,9 @@ $app->get('/listaUtenti', function (Request $request, Response $response) {
     $responseData = $db->getUtenti();
     //metto in un array json
     $response->getBody()->write(json_encode(array("utenti" => $responseData)));
+    //Piccola modifica per definire il Content-type come json, i dati sono strutturati precisamente adesso (cambia poco all'atto pratico)
+    $newResponse = $response->withHeader('Content-type', 'application/json');
+    return $newResponse;
 });
 
 
