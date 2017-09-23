@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d74badc8-cfac-4d0c-b7f4-4229b5bb3b64" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.php" afterPath="$PROJECT_DIR$/public/index.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -247,7 +246,7 @@
       <workItem from="1505460162800" duration="8131000" />
       <workItem from="1505492145767" duration="10000" />
       <workItem from="1505635012078" duration="2214000" />
-      <workItem from="1506190851231" duration="151000" />
+      <workItem from="1506190851231" duration="161000" />
     </task>
     <task id="LOCAL-00001">
       <created>1496072311079</created>
@@ -305,11 +304,18 @@
       <option name="project" value="LOCAL" />
       <updated>1505491710320</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Modicate alcune stringhe delle risposte Server (l'accento non viene letto correttamente dal Client)">
+      <created>1506191008386</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1506191008386</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60426000" />
+    <option name="totallyTimeSpent" value="60436000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
