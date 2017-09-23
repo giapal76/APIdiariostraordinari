@@ -76,10 +76,10 @@ $app->post('/insert', function (Request $request, Response $response) {
 
     if ($result == 1) {
         $responseData['error'] = false;
-        $responseData['message'] = 'Attore aggiunto con successo ';
+        $responseData['message'] = 'Utente aggiunto con successo ';
     } elseif ($result == 0) {
         $responseData['error'] = true;
-        $responseData['message'] = 'Attore già esistente';
+        $responseData['message'] = "Utente gia' esistente";
     }
 
     return $response->withJson($responseData);
@@ -100,7 +100,7 @@ $app->delete('/delete/{id}', function (Request $request, Response $response) {
 
             if ($result) {
                 $responseData['error'] = false;
-                $responseData['message'] = 'Attore cancellato con successo ';
+                $responseData['message'] = 'Utente cancellato con successo ';
             } else {
                 $responseData['error'] = true;
                 $responseData['message'] = 'Cancellazione non effettuata';
